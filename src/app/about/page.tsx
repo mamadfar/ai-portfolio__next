@@ -66,7 +66,7 @@ export default function Page() {
           </li>
           <li>
             <Link
-              href="3dfolio-one.vercel.app"
+              href="http://3dfolio-one.vercel.app"
               className="text-primary hover:underline"
             >
               My 3D Portfolio
