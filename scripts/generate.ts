@@ -5,8 +5,12 @@ import { DocumentInterface } from "@langchain/core/documents";
 import { DirectoryLoader } from "langchain/document_loaders/fs/directory";
 import { TextLoader } from "langchain/document_loaders/fs/text";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
+import { Redis } from "@upstash/redis";
 
 (async () => {
+
+  await Redis.fromEnv().flushdb(); // Clear the Redis cache
+
   const vectorStore = await getVectorStore();
 
   // Clear the collection before inserting new documents

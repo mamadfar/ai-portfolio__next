@@ -59,7 +59,7 @@ export const getVectorStore = async () => {
     });
   }
   const vectorStore = {
-    async addDocuments(documents: Array<{ pageContent: string; metadata?: any }>) {
+    async addDocuments(documents: Array<{ pageContent: string; metadata?: unknown }>) {
       const docsWithEmbeddings = await Promise.all(
         documents.map(async (doc) => {
           const embedding = await embeddings.embedDocuments([doc.pageContent]);
@@ -94,7 +94,7 @@ export const getVectorStore = async () => {
     },
 
     asRetriever(options?: { k?: number }) {
-      const k = options?.k || 4;
+      const k = options?.k || 4; //* Default number of documents to retrieve
       
       // Return an instance of the custom retriever
       return new AstraDbRetriever(vectorStore, { k });

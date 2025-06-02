@@ -140,9 +140,9 @@ const ChatMessage: FC<IChatMessageProps> = ({ message: { role, content } }) => {
           "rounded-md border px-3 py-2",
           isAiMessage ? "bg-background" : "bg-foreground text-background",
         )}
-      >
-        <ReactMarkdown
+      >        <ReactMarkdown
           components={{
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             a: ({ node, ref, ...props }) => (
               <Link
                 {...props}
@@ -150,15 +150,18 @@ const ChatMessage: FC<IChatMessageProps> = ({ message: { role, content } }) => {
                 className="text-primary hover:underline"
               />
             ),
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             p: ({ node, ...props }) => (
               <p {...props} className="mt-3 first:mt-0" />
             ),
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             ul: ({ node, ...props }) => (
               <ul
                 {...props}
                 className="mt-3 list-inside list-disc first:mt-0"
               />
             ),
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             li: ({ node, ...props }) => <li {...props} className="mt-1" />,
           }}
         >
