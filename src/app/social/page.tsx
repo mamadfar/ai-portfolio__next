@@ -69,26 +69,20 @@ const Social = () => {
             href="https://www.bimobject.com"
             className="text-primary hover:underline"
           >
-            
+            BimObject
           </a>
           ,{" "}
-          <a href="https://clerk.com/" className="text-primary hover:underline">
-            Clerk
-          </a>
-          ,{" "}
-          <a
-            href="https://www.packtpub.com/"
-            className="text-primary hover:underline"
-          >
-            Packt
+          <a href="https://citronity.com/" className="text-primary hover:underline">
+            Citronity
           </a>
           ,{" "}
           <a
-            href="https://brilliant.org/"
+            href="https://hamimohajer.co"
             className="text-primary hover:underline"
           >
-            Brilliant
-          </a>{" "}
+            Hamimohajer
+          </a>
+          ,{" "}
           and many more.
         </p>
       </section>
