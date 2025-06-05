@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Portfolio
 
-## Getting Started
+A modern, interactive portfolio website powered by AI that showcases my work and provides an intelligent chatbot experience for visitors.
 
-First, run the development server:
+Link to my [AI Portfolio](https://mamadfar.dev)
 
+## 🚀 Features
+
+- **AI-Powered Chat**: Interactive chatbot that can answer questions about my experience, skills, and projects
+- **Modern UI**: Beautiful, responsive design with dark/light theme support
+- **Vector Search**: Intelligent document retrieval using AstraDB vector database
+- **Real-time Chat**: Streaming responses with chat history and Redis caching
+- **Fast Performance**: Built with Next.js 15 and Turbopack for optimal speed
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 15 with TypeScript
+- **Styling**: Tailwind CSS v4
+- **AI/ML**: 
+  - OpenAI API for language model
+  - LangChain for AI orchestration
+  - Vector embeddings for semantic search
+- **Database**: AstraDB (Cassandra) for vector storage
+- **Caching**: Upstash Redis for chat history and response caching
+- **Icons**: Lucide React
+- **Deployment**: Vercel-ready
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+ 
+- npm or pnpm
+- OpenAI API key
+- AstraDB database
+- Upstash Redis instance
+
+### Installation
+
+2. Install dependencies:
 ```bash
-npm run dev
+npm install
 # or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Add your API keys (`.env.example`):
+```env
+OPENAI_API_KEY=your_openai_api_key
+ASTRA_DB_APPLICATION_TOKEN=your_astra_db_token
+ASTRA_DB_ID=your_astra_db_id
+UPSTASH_REDIS_REST_URL=your_redis_url
+UPSTASH_REDIS_REST_TOKEN=your_redis_token
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+5. Start the development server:
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open [http://localhost:3000](http://localhost:3000) to view the portfolio.
 
-## Learn More
+## 🤖 AI Features
 
-To learn more about Next.js, take a look at the following resources:
+The AI chatbot can:
+- Answer questions about my professional experience
+- Provide details about my projects and skills
+- Discuss my technical expertise
+- Maintain conversation context across messages
+- Search through portfolio content using vector similarity
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Built with ❤️ using Next.js and AI
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
