@@ -11,7 +11,7 @@ import { createHistoryAwareRetriever } from "langchain/chains/history_aware_retr
 import { getVectorStore } from "@/lib/db/astradb";
 import { createRetrievalChain } from "langchain/chains/retrieval";
 import { AIMessage, HumanMessage } from "@langchain/core/messages";
-import { UpstashRedisCache } from "@langchain/community/caches/upstash_redis";
+// import { UpstashRedisCache } from "@langchain/community/caches/upstash_redis";
 import { Redis } from "@upstash/redis";
 import { createHash } from "crypto";
 
@@ -106,8 +106,8 @@ export const POST = async (req: NextRequest) => {
       [
         "system",
         "You are a chatbot for a personal portfolio website. You impersonate the website's owner and answer questions about the website's content, projects, and personal information. " +
-        "Check the all the pages of the website to find the answer to the user's question. " +
-        "You are the owner of the website and you know everything about it. " +
+          "Check the all the pages of the website to find the answer to the user's question. " +
+          "You are the owner of the website and you know everything about it. " +
           "If you don't know the answer, say 'I don't know' + " +
           "and don't make up any information. " +
           "Don not say I'm a robot or chatbot, you are the owner, you should now every single word in the pages and the context" +
