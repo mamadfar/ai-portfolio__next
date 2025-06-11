@@ -8,7 +8,6 @@ import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 import { Redis } from "@upstash/redis";
 
 (async () => {
-
   await Redis.fromEnv().flushdb(); // Clear the Redis cache
 
   const vectorStore = await getVectorStore();

@@ -15,9 +15,9 @@ import { UpstashRedisCache } from "@langchain/community/caches/upstash_redis";
 import { Redis } from "@upstash/redis";
 import { createHash } from "crypto";
 
-const cache = new UpstashRedisCache({
-  client: Redis.fromEnv(), //* Initialize the Upstash Redis cache using environment variables for connection details
-});
+// const cache = new UpstashRedisCache({
+//   client: Redis.fromEnv(), //* Initialize the Upstash Redis cache using environment variables for connection details
+// });
 
 export const POST = async (req: NextRequest) => {
   try {
@@ -71,14 +71,14 @@ export const POST = async (req: NextRequest) => {
       streaming: true, //* It will send the response piece by piece as it generates them, if we set it to false, it will send the whole response at once.
       /* temperature: 0.7, */ //* 0 means the model will give you the same answer every time, and higher values like 0.7 will make the model more creative and diverse in its responses.
       /* verbose: true, */ //* If set to true, it will log the model's responses to the console.
-      cache, //* Enable caching to speed up response generation for repeated queries, it will store the responses in memory and return them instantly if the same query is made again.
+      // cache, //* Enable caching to speed up response generation for repeated queries, it will store the responses in memory and return them instantly if the same query is made again.
     });
 
     /**
      * Explain: This code initializes the chat model using the ChatOpenAI class from LangChain, which allows us to interact with OpenAI's GPT-4 model. The model is configured to stream responses, have a temperature setting for creativity, and can be set to verbose mode for debugging purposes.
      * The chat model will be used to generate responses based on the user's input and the context provided by the retrieved documents.
      */
-    const retriever = (await getVectorStore()).asRetriever();
+    const retriever = (await getVectorStore()).asRetriever({ k: 8 });
 
     /**
      * Explain: This code creates a prompt template for rephrasing the user input into a search query. It uses the MessagesPlaceholder to include the chat history in the chain, allowing the model to consider previous messages when generating the search query.

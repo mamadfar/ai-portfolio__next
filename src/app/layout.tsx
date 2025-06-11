@@ -28,17 +28,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+        className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col antialiased`}
       >
-        <ThemeProvider 
-          attribute='class'
-          defaultTheme='system'
-          enableSystem
-        >
-        <Navbar/>
-        <main className="mx-auto max-w-3xl px-3 py-10">{children}</main>
-        <Footer/>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Navbar />
+          <main className="mx-auto max-w-3xl px-3 py-10">{children}</main>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
