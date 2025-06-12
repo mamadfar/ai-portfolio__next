@@ -18,12 +18,12 @@ const Navbar = () => {
           <a
             href="/Mohammad_Farhadi_Frontend_Resume.pdf"
             download
-            className="inline-flex items-center gap-1 hover:underline"
+            className="flex items-center gap-1 hover:underline"
             target="_self"
             rel="noopener noreferrer"
             aria-label="Download Resume"
           >
-            <DownloadCloud className="h-5 w-5" />
+            <DownloadCloud size={20} />
             resume
           </a>
         </div>
