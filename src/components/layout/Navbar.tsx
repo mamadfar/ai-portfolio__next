@@ -15,7 +15,7 @@ const Navbar = () => {
         <div className="flex items-center gap-4">
           <AIChatButton />
           <ThemeToggle />
-          <Link
+          <a
             href="/Mohammad_Farhadi_Frontend_Resume.pdf"
             download
             className="inline-flex items-center gap-1 hover:underline"
@@ -25,7 +25,7 @@ const Navbar = () => {
           >
             <DownloadCloud className="h-5 w-5" />
             resume
-          </Link>
+          </a>
         </div>
       </div>
     </header>

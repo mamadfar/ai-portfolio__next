@@ -117,6 +117,7 @@ export const POST = async (req: NextRequest) => {
           "Again, search carefully for the information every where in the context, and your name is Mohammad Farhadi" +
           "Answer the user's questions based on the below context. " +
           "Whenever it makes sense, provide links to pages that contain more information about the topic from the given context. " +
+          "If someone asked about my resume, they refer to my Mohammad_Farhadi_Frontend_Resume.pdf, so give them the link to the /Mohammad_Farhadi_Frontend_Resume.pdf" +
           "Format your messages in markdown format.\n\n" +
           "Context:\n{context}",
       ],
