@@ -3,6 +3,7 @@ import Image from "next/image";
 import { H1, H2 } from "@/components";
 import { Me } from "@/assets";
 import { Bot } from "lucide-react";
+import { TextGenerateEffect } from "@/components";
 
 export const metadata: Metadata = {
   title: "Mohammad Farhadi - My Smart Portfolio",
@@ -17,8 +18,11 @@ export default function Home() {
             Hello, I&apos;m Mohammad 👋
           </H1>
           <p className="text-center sm:text-start">
-            I&apos;m a software developer with front-end super power who loves
-            building interactive web applications.
+            <TextGenerateEffect
+              duration={0.3}
+              filter={false}
+              words={`I'm a software developer with front-end super power who loves building interactive web applications.`}
+            />
           </p>
         </div>
         <div className="flex justify-center">
