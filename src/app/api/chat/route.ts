@@ -22,7 +22,7 @@ import { createHash } from "crypto";
 export const POST = async (req: NextRequest) => {
   try {
     console.log("[API] POST /api/chat - Request received");
-    
+
     const body = await req.json();
     const { messages } = body;
 
@@ -31,7 +31,7 @@ export const POST = async (req: NextRequest) => {
       console.error("[API] Invalid messages array:", messages);
       return NextResponse.json(
         { error: "Invalid messages format" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -52,7 +52,7 @@ export const POST = async (req: NextRequest) => {
       console.error("[API] Empty message content");
       return NextResponse.json(
         { error: "Message content cannot be empty" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -66,19 +66,23 @@ export const POST = async (req: NextRequest) => {
 
     const cacheKey = createHash("sha256")
       .update(JSON.stringify(cachePayload))
-      .digest("hex"); 
-    
+      .digest("hex");
+
     // Check if we have a cached response with error handling
-    console.log(`[CACHE] Checking cache for key: ${cacheKey.substring(0, 8)}...`);
+    console.log(
+      `[CACHE] Checking cache for key: ${cacheKey.substring(0, 8)}...`,
+    );
     let redis: Redis | null = null;
     let cachedResponse: string | null = null;
-    
+
     try {
       redis = Redis.fromEnv();
       cachedResponse = await redis.get(`chat_response:${cacheKey}`);
-      
+
       if (cachedResponse) {
-        console.log(`[CACHE HIT] Returning cached response for key: ${cacheKey.substring(0, 8)}...`);
+        console.log(
+          `[CACHE HIT] Returning cached response for key: ${cacheKey.substring(0, 8)}...`,
+        );
         // Return cached response as a stream
         const stream = new ReadableStream({
           start(controller) {
@@ -89,7 +93,10 @@ export const POST = async (req: NextRequest) => {
         return LangChainAdapter.toDataStreamResponse(stream);
       }
     } catch (cacheError) {
-      console.warn("[CACHE ERROR] Failed to access cache, proceeding without cache:", cacheError);
+      console.warn(
+        "[CACHE ERROR] Failed to access cache, proceeding without cache:",
+        cacheError,
+      );
       // Continue without cache if Redis is unavailable
       redis = null;
     }
@@ -112,8 +119,11 @@ export const POST = async (req: NextRequest) => {
     } catch (modelError) {
       console.error("[AI] Failed to initialize ChatOpenAI model:", modelError);
       return NextResponse.json(
-        { error: "AI service temporarily unavailable. Please check your OpenAI API key and quota." },
-        { status: 503 }
+        {
+          error:
+            "AI service temporarily unavailable. Please check your OpenAI API key and quota.",
+        },
+        { status: 503 },
       );
     }
 
@@ -129,8 +139,11 @@ export const POST = async (req: NextRequest) => {
     } catch (dbError) {
       console.error("[DB] Failed to initialize vector store:", dbError);
       return NextResponse.json(
-        { error: "Database service temporarily unavailable. Please try again later." },
-        { status: 503 }
+        {
+          error:
+            "Database service temporarily unavailable. Please try again later.",
+        },
+        { status: 503 },
       );
     }
 
@@ -221,9 +234,14 @@ export const POST = async (req: NextRequest) => {
               await redis.set(`chat_response:${cacheKey}`, completeResponse, {
                 ex: 3600,
               }); //? Cache for 1 hour
-              console.log(`[CACHE] Response cached successfully for key: ${cacheKey.substring(0, 8)}...`);
+              console.log(
+                `[CACHE] Response cached successfully for key: ${cacheKey.substring(0, 8)}...`,
+              );
             } catch (cacheError) {
-              console.warn("[CACHE ERROR] Failed to cache response:", cacheError);
+              console.warn(
+                "[CACHE ERROR] Failed to cache response:",
+                cacheError,
+              );
               // Don't fail the request if caching fails
             }
           }
@@ -238,7 +256,7 @@ export const POST = async (req: NextRequest) => {
     return LangChainAdapter.toDataStreamResponse(transformedStream);
   } catch (error) {
     console.error("Error in POST /api/chat:", error);
-    
+
     // Log more specific error information
     if (error instanceof Error) {
       console.error("Error name:", error.name);
@@ -247,28 +265,36 @@ export const POST = async (req: NextRequest) => {
         console.error("Error stack:", error.stack);
       }
     }
-    
+
     // Return more specific error messages based on error type
     let errorMessage = "Internal Server Error";
     let statusCode = 500;
-    
+
     if (error instanceof Error) {
-      if (error.message.includes("rate limit") || error.message.includes("quota")) {
-        errorMessage = "AI service rate limit exceeded. Please try again in a few minutes.";
+      if (
+        error.message.includes("rate limit") ||
+        error.message.includes("quota")
+      ) {
+        errorMessage =
+          "AI service rate limit exceeded. Please try again in a few minutes.";
         statusCode = 429;
-      } else if (error.message.includes("API key") || error.message.includes("authentication")) {
-        errorMessage = "AI service authentication failed. Please try again later.";
+      } else if (
+        error.message.includes("API key") ||
+        error.message.includes("authentication")
+      ) {
+        errorMessage =
+          "AI service authentication failed. Please try again later.";
         statusCode = 503;
-      } else if (error.message.includes("timeout") || error.message.includes("network")) {
+      } else if (
+        error.message.includes("timeout") ||
+        error.message.includes("network")
+      ) {
         errorMessage = "Service temporarily unavailable. Please try again.";
         statusCode = 503;
       }
     }
-    
-    return NextResponse.json(
-      { error: errorMessage },
-      { status: statusCode },
-    );
+
+    return NextResponse.json({ error: errorMessage }, { status: statusCode });
   }
 };
 

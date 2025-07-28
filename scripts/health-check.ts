@@ -13,12 +13,15 @@ async function checkOpenAI() {
     const embeddings = new OpenAIEmbeddings({
       model: "text-embedding-3-small",
     });
-    
+
     await embeddings.embedQuery("test");
     console.log("✅ OpenAI API: Working");
     return true;
   } catch (error) {
-    console.error("❌ OpenAI API: Failed", error instanceof Error ? error.message : error);
+    console.error(
+      "❌ OpenAI API: Failed",
+      error instanceof Error ? error.message : error,
+    );
     return false;
   }
 }
@@ -29,7 +32,7 @@ async function checkRedis() {
     const redis = Redis.fromEnv();
     await redis.set("health-check", "test", { ex: 60 });
     const result = await redis.get("health-check");
-    
+
     if (result === "test") {
       console.log("✅ Redis Cache: Working");
       return true;
@@ -38,7 +41,10 @@ async function checkRedis() {
       return false;
     }
   } catch (error) {
-    console.error("❌ Redis Cache: Failed", error instanceof Error ? error.message : error);
+    console.error(
+      "❌ Redis Cache: Failed",
+      error instanceof Error ? error.message : error,
+    );
     return false;
   }
 }
@@ -58,12 +64,15 @@ async function checkAstraDB() {
     const client = new DataAPIClient(token);
     const db = client.db(endpoint);
     const coll = db.collection(collection);
-    
+
     await coll.options();
     console.log("✅ AstraDB: Working");
     return true;
   } catch (error) {
-    console.error("❌ AstraDB: Failed", error instanceof Error ? error.message : error);
+    console.error(
+      "❌ AstraDB: Failed",
+      error instanceof Error ? error.message : error,
+    );
     return false;
   }
 }
@@ -90,19 +99,24 @@ async function checkChatAPI() {
       console.log("✅ Chat API: Working");
       return true;
     } else {
-      console.error(`❌ Chat API: HTTP ${response.status} - ${response.statusText}`);
+      console.error(
+        `❌ Chat API: HTTP ${response.status} - ${response.statusText}`,
+      );
       return false;
     }
   } catch (error) {
-    console.error("❌ Chat API: Failed", error instanceof Error ? error.message : error);
+    console.error(
+      "❌ Chat API: Failed",
+      error instanceof Error ? error.message : error,
+    );
     return false;
   }
 }
 
 async function runHealthCheck() {
   console.log("🏥 AI Portfolio Health Check");
-  console.log("=" .repeat(40));
-  
+  console.log("=".repeat(40));
+
   const checks = [
     { name: "OpenAI API", fn: checkOpenAI },
     { name: "Redis Cache", fn: checkRedis },
@@ -111,7 +125,7 @@ async function runHealthCheck() {
   ];
 
   const results = [];
-  
+
   for (const check of checks) {
     try {
       const result = await check.fn();
@@ -123,17 +137,17 @@ async function runHealthCheck() {
   }
 
   console.log("\n📊 Health Check Summary");
-  console.log("=" .repeat(40));
-  
-  const successful = results.filter(r => r.success).length;
+  console.log("=".repeat(40));
+
+  const successful = results.filter((r) => r.success).length;
   const total = results.length;
-  
-  results.forEach(result => {
+
+  results.forEach((result) => {
     console.log(`${result.success ? "✅" : "❌"} ${result.name}`);
   });
-  
+
   console.log(`\n🎯 Overall: ${successful}/${total} services working`);
-  
+
   if (successful === total) {
     console.log("🎉 All services are healthy!");
     process.exit(0);
@@ -144,7 +158,7 @@ async function runHealthCheck() {
 }
 
 // Run the health check
-runHealthCheck().catch(error => {
+runHealthCheck().catch((error) => {
   console.error("💥 Health check failed to run:", error);
   process.exit(1);
 });

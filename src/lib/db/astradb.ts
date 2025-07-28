@@ -1,7 +1,10 @@
 import { OpenAIEmbeddings } from "@langchain/openai";
 import { DataAPIClient } from "@datastax/astra-db-ts";
 import { Document } from "@langchain/core/documents";
-import { BaseRetriever, type BaseRetrieverInterface } from "@langchain/core/retrievers";
+import {
+  BaseRetriever,
+  type BaseRetrieverInterface,
+} from "@langchain/core/retrievers";
 
 const endpoint = process.env.ASTRA_DB_ENDPOINT || "";
 const token = process.env.ASTRA_DB_APPLICATION_TOKEN || "";
@@ -14,7 +17,10 @@ if (!endpoint || !token || !collection) {
 }
 
 // Define a custom Retriever class
-export class AstraDbRetriever extends BaseRetriever implements BaseRetrieverInterface {
+export class AstraDbRetriever
+  extends BaseRetriever
+  implements BaseRetrieverInterface
+{
   lc_namespace = ["langchain", "retrievers", "astradb"];
 
   private vectorStore: {
@@ -42,7 +48,7 @@ export class AstraDbRetriever extends BaseRetriever implements BaseRetrieverInte
 export const getVectorStore = async () => {
   try {
     console.log("[ASTRA] Initializing AstraDB connection...");
-    
+
     const client = new DataAPIClient(token);
     const db = client.db(endpoint);
     const coll = db.collection(collection);
@@ -64,60 +70,70 @@ export const getVectorStore = async () => {
       });
       console.log("[ASTRA] Collection created successfully");
     }
-  const vectorStore = {
-    async addDocuments(documents: Array<{ pageContent: string; metadata?: unknown }>) {
-      const docsWithEmbeddings = await Promise.all(
-        documents.map(async (doc) => {
-          const embedding = await embeddings.embedDocuments([doc.pageContent]);
-          return {
-            text: doc.pageContent,
-            metadata: doc.metadata || {},
-            $vector: embedding[0],
-          };
-        })
-      );
-      
-      return await coll.insertMany(docsWithEmbeddings);
-    },
-
-    async similaritySearch(query: string, k: number = 4) {
-      try {
-        const queryEmbedding = await embeddings.embedQuery(query);
-        
-        const cursor = coll.find(
-          {},
-          {
-            sort: { $vector: queryEmbedding },
-            limit: k,
-            includeSimilarity: true,
-          }
+    const vectorStore = {
+      async addDocuments(
+        documents: Array<{ pageContent: string; metadata?: unknown }>,
+      ) {
+        const docsWithEmbeddings = await Promise.all(
+          documents.map(async (doc) => {
+            const embedding = await embeddings.embedDocuments([
+              doc.pageContent,
+            ]);
+            return {
+              text: doc.pageContent,
+              metadata: doc.metadata || {},
+              $vector: embedding[0],
+            };
+          }),
         );
-        
-        const results = await cursor.toArray();
-        return results.map(doc => new Document({
-          pageContent: doc.text || doc.content || "",
-          metadata: doc.metadata || {},
-        }));
-      } catch (searchError) {
-        console.error("[ASTRA] Similarity search failed:", searchError);
-        throw new Error(`Vector search failed: ${searchError instanceof Error ? searchError.message : 'Unknown error'}`);
-      }
-    },
 
-    asRetriever(options?: { k?: number }) {
-      const k = options?.k || 4; //* Default number of documents to retrieve
-      
-      // Return an instance of the custom retriever
-      return new AstraDbRetriever(vectorStore, { k });
-    }
-  };
+        return await coll.insertMany(docsWithEmbeddings);
+      },
 
-  console.log("[ASTRA] Vector store initialized successfully");
-  return vectorStore;
-  
+      async similaritySearch(query: string, k: number = 4) {
+        try {
+          const queryEmbedding = await embeddings.embedQuery(query);
+
+          const cursor = coll.find(
+            {},
+            {
+              sort: { $vector: queryEmbedding },
+              limit: k,
+              includeSimilarity: true,
+            },
+          );
+
+          const results = await cursor.toArray();
+          return results.map(
+            (doc) =>
+              new Document({
+                pageContent: doc.text || doc.content || "",
+                metadata: doc.metadata || {},
+              }),
+          );
+        } catch (searchError) {
+          console.error("[ASTRA] Similarity search failed:", searchError);
+          throw new Error(
+            `Vector search failed: ${searchError instanceof Error ? searchError.message : "Unknown error"}`,
+          );
+        }
+      },
+
+      asRetriever(options?: { k?: number }) {
+        const k = options?.k || 4; //* Default number of documents to retrieve
+
+        // Return an instance of the custom retriever
+        return new AstraDbRetriever(vectorStore, { k });
+      },
+    };
+
+    console.log("[ASTRA] Vector store initialized successfully");
+    return vectorStore;
   } catch (error) {
     console.error("[ASTRA] Failed to initialize vector store:", error);
-    throw new Error(`AstraDB initialization failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    throw new Error(
+      `AstraDB initialization failed: ${error instanceof Error ? error.message : "Unknown error"}`,
+    );
   }
 };
 

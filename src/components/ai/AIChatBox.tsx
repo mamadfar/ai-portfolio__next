@@ -30,15 +30,15 @@ const AIChatBox: FC<IAIChatBoxProps> = ({ open, onClose }) => {
 
   useEffect(() => {
     if (scrollRef.current) {
-        scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages]);
 
-    useEffect(() => {
-        if (open) {
-        inputRef.current?.focus();
-        }
-    }, [open]);
+  useEffect(() => {
+    if (open) {
+      inputRef.current?.focus();
+    }
+  }, [open]);
 
   return (
     <div
@@ -69,7 +69,8 @@ const AIChatBox: FC<IAIChatBoxProps> = ({ open, onClose }) => {
               message={{
                 id: "error",
                 role: "assistant",
-                content: "I'm having trouble connecting right now. This might be due to high demand or a temporary service issue. Please wait a moment and try again. If the problem persists, please try again in a few minutes.",
+                content:
+                  "I'm having trouble connecting right now. This might be due to high demand or a temporary service issue. Please wait a moment and try again. If the problem persists, please try again in a few minutes.",
               }}
             />
           )}
@@ -140,7 +141,9 @@ const ChatMessage: FC<IChatMessageProps> = ({ message: { role, content } }) => {
           "rounded-md border px-3 py-2",
           isAiMessage ? "bg-background" : "bg-foreground text-background",
         )}
-      >        <ReactMarkdown
+      >
+        {" "}
+        <ReactMarkdown
           components={{
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             a: ({ node, ref, ...props }) => (
