@@ -69,7 +69,7 @@ const AIChatBox: FC<IAIChatBoxProps> = ({ open, onClose }) => {
               message={{
                 id: "error",
                 role: "assistant",
-                content: "Something went wrong. Please try again.",
+                content: "I'm having trouble connecting right now. This might be due to high demand or a temporary service issue. Please wait a moment and try again. If the problem persists, please try again in a few minutes.",
               }}
             />
           )}

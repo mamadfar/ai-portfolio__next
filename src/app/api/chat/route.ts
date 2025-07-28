@@ -21,8 +21,19 @@ import { createHash } from "crypto";
 
 export const POST = async (req: NextRequest) => {
   try {
+    console.log("[API] POST /api/chat - Request received");
+    
     const body = await req.json();
     const { messages } = body;
+
+    // Validate input
+    if (!messages || !Array.isArray(messages) || messages.length === 0) {
+      console.error("[API] Invalid messages array:", messages);
+      return NextResponse.json(
+        { error: "Invalid messages format" },
+        { status: 400 }
+      );
+    }
 
     /**
      * Explain: This code processes the chat messages sent to the API endpoint. It extracts the chat history and the current user input message, which will be used to generate a response from the AI model.
@@ -37,6 +48,14 @@ export const POST = async (req: NextRequest) => {
       );
     const currentMessageContent = messages[messages.length - 1]?.content;
 
+    if (!currentMessageContent?.trim()) {
+      console.error("[API] Empty message content");
+      return NextResponse.json(
+        { error: "Message content cannot be empty" },
+        { status: 400 }
+      );
+    }
+
     // Create a cache key based on ONLY the current message for simple caching
     // This ensures the same question always gets the same cached response
     const normalizedInput = currentMessageContent?.trim();
@@ -47,38 +66,73 @@ export const POST = async (req: NextRequest) => {
 
     const cacheKey = createHash("sha256")
       .update(JSON.stringify(cachePayload))
-      .digest("hex"); // Check if we have a cached response
-    const redis = Redis.fromEnv();
-    const cachedResponse = await redis.get(`chat_response:${cacheKey}`);
-
-    if (cachedResponse) {
-      // Return cached response as a stream
-      const stream = new ReadableStream({
-        start(controller) {
-          controller.enqueue(cachedResponse as string);
-          controller.close();
-        },
-      });
-      return LangChainAdapter.toDataStreamResponse(stream);
+      .digest("hex"); 
+    
+    // Check if we have a cached response with error handling
+    console.log(`[CACHE] Checking cache for key: ${cacheKey.substring(0, 8)}...`);
+    let redis: Redis | null = null;
+    let cachedResponse: string | null = null;
+    
+    try {
+      redis = Redis.fromEnv();
+      cachedResponse = await redis.get(`chat_response:${cacheKey}`);
+      
+      if (cachedResponse) {
+        console.log(`[CACHE HIT] Returning cached response for key: ${cacheKey.substring(0, 8)}...`);
+        // Return cached response as a stream
+        const stream = new ReadableStream({
+          start(controller) {
+            controller.enqueue(cachedResponse as string);
+            controller.close();
+          },
+        });
+        return LangChainAdapter.toDataStreamResponse(stream);
+      }
+    } catch (cacheError) {
+      console.warn("[CACHE ERROR] Failed to access cache, proceeding without cache:", cacheError);
+      // Continue without cache if Redis is unavailable
+      redis = null;
     }
 
     console.log(
       `[CACHE MISS] Processing new request for key: ${cacheKey.substring(0, 8)}...`,
     );
 
-    const chatModel = new ChatOpenAI({
-      model: "gpt-4-turbo",
-      streaming: true, //* It will send the response piece by piece as it generates them, if we set it to false, it will send the whole response at once.
-      /* temperature: 0.7, */ //* 0 means the model will give you the same answer every time, and higher values like 0.7 will make the model more creative and diverse in its responses.
-      /* verbose: true, */ //* If set to true, it will log the model's responses to the console.
-      // cache, //* Enable caching to speed up response generation for repeated queries, it will store the responses in memory and return them instantly if the same query is made again.
-    });
+    // Initialize chat model with error handling
+    let chatModel;
+    try {
+      chatModel = new ChatOpenAI({
+        model: "gpt-4-turbo",
+        streaming: true, //* It will send the response piece by piece as it generates them, if we set it to false, it will send the whole response at once.
+        /* temperature: 0.7, */ //* 0 means the model will give you the same answer every time, and higher values like 0.7 will make the model more creative and diverse in its responses.
+        /* verbose: true, */ //* If set to true, it will log the model's responses to the console.
+        // cache, //* Enable caching to speed up response generation for repeated queries, it will store the responses in memory and return them instantly if the same query is made again.
+      });
+      console.log("[AI] ChatOpenAI model initialized successfully");
+    } catch (modelError) {
+      console.error("[AI] Failed to initialize ChatOpenAI model:", modelError);
+      return NextResponse.json(
+        { error: "AI service temporarily unavailable. Please check your OpenAI API key and quota." },
+        { status: 503 }
+      );
+    }
 
     /**
      * Explain: This code initializes the chat model using the ChatOpenAI class from LangChain, which allows us to interact with OpenAI's GPT-4 model. The model is configured to stream responses, have a temperature setting for creativity, and can be set to verbose mode for debugging purposes.
      * The chat model will be used to generate responses based on the user's input and the context provided by the retrieved documents.
      */
-    const retriever = (await getVectorStore()).asRetriever({ k: 8 });
+    let retriever;
+    try {
+      console.log("[DB] Initializing vector store retriever...");
+      retriever = (await getVectorStore()).asRetriever({ k: 8 });
+      console.log("[DB] Vector store retriever initialized successfully");
+    } catch (dbError) {
+      console.error("[DB] Failed to initialize vector store:", dbError);
+      return NextResponse.json(
+        { error: "Database service temporarily unavailable. Please try again later." },
+        { status: 503 }
+      );
+    }
 
     /**
      * Explain: This code creates a prompt template for rephrasing the user input into a search query. It uses the MessagesPlaceholder to include the chat history in the chain, allowing the model to consider previous messages when generating the search query.
@@ -162,10 +216,16 @@ export const POST = async (req: NextRequest) => {
             }
           }
           // Cache the complete response for future requests
-          if (completeResponse) {
-            await redis.set(`chat_response:${cacheKey}`, completeResponse, {
-              ex: 3600,
-            }); //? Cache for 1 hour
+          if (completeResponse && redis) {
+            try {
+              await redis.set(`chat_response:${cacheKey}`, completeResponse, {
+                ex: 3600,
+              }); //? Cache for 1 hour
+              console.log(`[CACHE] Response cached successfully for key: ${cacheKey.substring(0, 8)}...`);
+            } catch (cacheError) {
+              console.warn("[CACHE ERROR] Failed to cache response:", cacheError);
+              // Don't fail the request if caching fails
+            }
           }
 
           controller.close();
@@ -178,9 +238,36 @@ export const POST = async (req: NextRequest) => {
     return LangChainAdapter.toDataStreamResponse(transformedStream);
   } catch (error) {
     console.error("Error in POST /api/chat:", error);
+    
+    // Log more specific error information
+    if (error instanceof Error) {
+      console.error("Error name:", error.name);
+      console.error("Error message:", error.message);
+      if (error.stack) {
+        console.error("Error stack:", error.stack);
+      }
+    }
+    
+    // Return more specific error messages based on error type
+    let errorMessage = "Internal Server Error";
+    let statusCode = 500;
+    
+    if (error instanceof Error) {
+      if (error.message.includes("rate limit") || error.message.includes("quota")) {
+        errorMessage = "AI service rate limit exceeded. Please try again in a few minutes.";
+        statusCode = 429;
+      } else if (error.message.includes("API key") || error.message.includes("authentication")) {
+        errorMessage = "AI service authentication failed. Please try again later.";
+        statusCode = 503;
+      } else if (error.message.includes("timeout") || error.message.includes("network")) {
+        errorMessage = "Service temporarily unavailable. Please try again.";
+        statusCode = 503;
+      }
+    }
+    
     return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 },
+      { error: errorMessage },
+      { status: statusCode },
     );
   }
 };

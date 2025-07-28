@@ -40,24 +40,30 @@ export class AstraDbRetriever extends BaseRetriever implements BaseRetrieverInte
 
 // Create a compatibility wrapper that mimics AstraDBVectorStore
 export const getVectorStore = async () => {
-  const client = new DataAPIClient(token);
-  const db = client.db(endpoint);
-  const coll = db.collection(collection);
-  const embeddings = new OpenAIEmbeddings({
-    model: "text-embedding-3-small",
-  });
-
-  // Check if collection exists, if not create it
   try {
-    await coll.options();
-  } catch {
-    await db.createCollection(collection, {
-      vector: {
-        dimension: 1536,
-        metric: "cosine",
-      },
+    console.log("[ASTRA] Initializing AstraDB connection...");
+    
+    const client = new DataAPIClient(token);
+    const db = client.db(endpoint);
+    const coll = db.collection(collection);
+    const embeddings = new OpenAIEmbeddings({
+      model: "text-embedding-3-small",
     });
-  }
+
+    // Check if collection exists, if not create it
+    try {
+      await coll.options();
+      console.log("[ASTRA] Collection exists, proceeding...");
+    } catch (collError) {
+      console.log("[ASTRA] Collection doesn't exist, creating...");
+      await db.createCollection(collection, {
+        vector: {
+          dimension: 1536,
+          metric: "cosine",
+        },
+      });
+      console.log("[ASTRA] Collection created successfully");
+    }
   const vectorStore = {
     async addDocuments(documents: Array<{ pageContent: string; metadata?: unknown }>) {
       const docsWithEmbeddings = await Promise.all(
@@ -75,22 +81,27 @@ export const getVectorStore = async () => {
     },
 
     async similaritySearch(query: string, k: number = 4) {
-      const queryEmbedding = await embeddings.embedQuery(query);
-      
-      const cursor = coll.find(
-        {},
-        {
-          sort: { $vector: queryEmbedding },
-          limit: k,
-          includeSimilarity: true,
-        }
-      );
-      
-      const results = await cursor.toArray();
-      return results.map(doc => new Document({
-        pageContent: doc.text || doc.content || "",
-        metadata: doc.metadata || {},
-      }));
+      try {
+        const queryEmbedding = await embeddings.embedQuery(query);
+        
+        const cursor = coll.find(
+          {},
+          {
+            sort: { $vector: queryEmbedding },
+            limit: k,
+            includeSimilarity: true,
+          }
+        );
+        
+        const results = await cursor.toArray();
+        return results.map(doc => new Document({
+          pageContent: doc.text || doc.content || "",
+          metadata: doc.metadata || {},
+        }));
+      } catch (searchError) {
+        console.error("[ASTRA] Similarity search failed:", searchError);
+        throw new Error(`Vector search failed: ${searchError instanceof Error ? searchError.message : 'Unknown error'}`);
+      }
     },
 
     asRetriever(options?: { k?: number }) {
@@ -101,7 +112,13 @@ export const getVectorStore = async () => {
     }
   };
 
+  console.log("[ASTRA] Vector store initialized successfully");
   return vectorStore;
+  
+  } catch (error) {
+    console.error("[ASTRA] Failed to initialize vector store:", error);
+    throw new Error(`AstraDB initialization failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
 };
 
 export const getEmbeddingsCollection = async () => {

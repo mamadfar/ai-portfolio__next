@@ -17,7 +17,8 @@ export default function Page() {
           My name is Mohammad Farhadi and I am a self-taught software developer
           from Hungary (Originally I&apos;m from Iran). I started programming in
           2017, at the age of 22, and since then I have worked on many projects,
-          both personal and professional. I graduated with MSc Computer Science from the Obuda University in 2024.
+          both personal and professional. I graduated with MSc Computer Science
+          from the Obuda University in 2024.
         </p>
         <p>
           I&apos;m passionate about building cool apps and websites and I love
@@ -75,15 +76,6 @@ export default function Page() {
           </li>
           <li>
             <Link
-              href="https://airbnb-clone-ebon-one.vercel.app/search?location=london&startDate=2025-05-30T12:20:19.933Z&endDate=2025-05-30T12:20:19.933Z&noOfGuests=1"
-              className="text-primary hover:underline"
-            >
-              Airbnb Clone
-            </Link>{" "}
-            - A clone of the Airbnb website built with Next.js and Mapbox
-          </li>
-          <li>
-            <Link
               href="https://github.com/mamadfar/dappazon__solidity"
               className="text-primary hover:underline"
             >
@@ -101,7 +93,7 @@ export default function Page() {
             - A ChatGPT clone that read the answers out loud using Web Speech
             API (synthesis)
           </li>
-                    <li>
+          <li>
             <Link
               href="https://sharemeeeeee.netlify.app/login"
               className="text-primary hover:underline"
