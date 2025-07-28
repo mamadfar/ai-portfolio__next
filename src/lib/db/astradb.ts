@@ -61,7 +61,7 @@ export const getVectorStore = async () => {
       await coll.options();
       console.log("[ASTRA] Collection exists, proceeding...");
     } catch (collError) {
-      console.log("[ASTRA] Collection doesn't exist, creating...");
+      console.log("[ASTRA] Collection doesn't exist, creating...", collError);
       await db.createCollection(collection, {
         vector: {
           dimension: 1536,
