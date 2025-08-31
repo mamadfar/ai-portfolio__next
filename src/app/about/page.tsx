@@ -37,7 +37,11 @@ export default function Page() {
           <strong>Angular/Angular Universal</strong>, <strong>SvelteKit</strong>
           , and familiar with <strong>Node.js</strong>. I have a strong
           understanding of web development principles and best practices, and
-          I&apos;m always eager to learn new technologies and frameworks.
+          I&apos;m always eager to learn new technologies and frameworks. I am
+          actively expanding into full-stack development with Python and
+          Node.js, specifically focusing on AI/LLM-driven projects and
+          integrating smart agents using tools like LangChain, OpenAI, and
+          Gemini.
         </p>
         <p>
           I also have experience with mobile development (React Native) but have
