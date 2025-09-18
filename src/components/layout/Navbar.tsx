@@ -16,7 +16,8 @@ const Navbar = () => {
           <AIChatButton />
           <ThemeToggle />
           <a
-            href="/Mohammad_Farhadi_Frontend_Resume.pdf"
+            // href="/Mohammad_Farhadi_Frontend_Resume.pdf"
+            href="/Mohammad_Farhadi_Software_Engineer_Resume.pdf"
             download
             className="flex items-center gap-1 hover:underline"
             target="_self"
