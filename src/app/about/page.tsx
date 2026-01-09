@@ -14,7 +14,7 @@ export default function Page() {
       <section className="space-y-3">
         <H2>Who am I?</H2>
         <p>
-          My name is Mohammad Farhadi and I am a self-taught software developer
+          My name is Mohammad Farhadi and I am a self-taught software engineer
           from Hungary (Originally I&apos;m from Iran). I started programming in
           2017, at the age of 22, and since then I have worked on many projects,
           both personal and professional. I graduated with MSc Computer Science
@@ -31,11 +31,11 @@ export default function Page() {
       <section className="space-y-3">
         <H2>Skills</H2>
         <p>
-          I&apos;m a front-end web developer/engineer specializing in{" "}
+          I&apos;m a software engineer specializing in{" "}
           <strong>React</strong>, <strong>Next.js</strong>,{" "}
           <strong>TypeScript</strong>,{" "}
           <strong>Angular/Angular Universal</strong>, <strong>SvelteKit</strong>
-          , and familiar with <strong>Node.js</strong>. I have a strong
+          , and familiar with <strong>Node.js</strong> and <strong>Python</strong>. I have a strong
           understanding of web development principles and best practices, and
           I&apos;m always eager to learn new technologies and frameworks. I am
           actively expanding into full-stack development with Python and
@@ -116,6 +116,72 @@ export default function Page() {
             </Link>
           </li>
         </ul>
+      </section>
+      <hr className="border-muted" />
+      <section className="space-y-3">
+        <H2>Professional Experience</H2>
+        
+        <div className="space-y-6">
+          <div>
+            <h3 className="text-xl font-semibold">
+              Senior Software Engineer
+            </h3>
+            <p className="text-muted-foreground text-sm mb-2">
+              KLM Royal Dutch Airlines &middot; Budapest, Hungary / Amsterdam, Netherlands &middot; Nov 2025 - Present
+            </p>
+            <p>
+              Collaborating with cross-functional teams across Budapest and Amsterdam hubs to design and implement performant API integrations for enterprise-level internal tools. Architected and integrated an AI-driven search feature utilizing LLMs to streamline access to complex operational data. Building scalable, high-traffic frontend features using Angular, ensuring optimal performance for mission-critical airline systems.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-xl font-semibold">
+              Software Engineer
+            </h3>
+            <p className="text-muted-foreground text-sm mb-2">
+              BimObject &middot; Budapest, Hungary / Malmö, Sweden &middot; Jul 2023 - Oct 2025
+            </p>
+            <p>
+              Architected and built SvelteKit SSR applications with centralized authentication, securing access for over 5 million users. Developed SEO-optimized Angular Universal applications that boosted organic visibility by 20%. Delivered 20+ features for high-traffic platforms, enhancing user engagement by 30%. Collaborated closely with backend teams to design performant API integrations and contributed to an internal Next.js/React AI project, deepening expertise in LLM-enabled user interfaces.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-xl font-semibold">
+              Software Engineer
+            </h3>
+            <p className="text-muted-foreground text-sm mb-2">
+              Citronity &middot; Toronto, Canada &middot; Oct 2021 - Jul 2023
+            </p>
+            <p>
+              Built 4 React applications and reusable UI libraries using Ant Design and Redux. Improved user experience by 50% through systematic debugging and codebase optimization. Mentored junior developers, contributing to a 20% increase in team output, and achieved 90% customer satisfaction through rapid delivery and quality-focused development.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-xl font-semibold">
+              Frontend Developer
+            </h3>
+            <p className="text-muted-foreground text-sm mb-2">
+              Hamimohajer &middot; Alborz, Iran &middot; Oct 2020 - Oct 2021
+            </p>
+            <p>
+              Designed and launched React/Next.js dashboards that raised user engagement by 40%. Integrated 30+ REST APIs into scalable web applications and enhanced overall app performance by 50% through implementing React best practices and optimization techniques.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-xl font-semibold">
+              Frontend Developer
+            </h3>
+            <p className="text-muted-foreground text-sm mb-2">
+              Tadbir Hesab Mohaseban & Novin Tarh Gostaran &middot; Iran &middot; Jun 2017 - Oct 2020
+            </p>
+            <p>
+              Refactored React/SCSS codebases to reduce system downtime by 20%. Led responsive design implementation, significantly improving mobile retention. Solved critical cross-browser compatibility issues, increasing overall accessibility and application performance.
+            </p>
+          </div>
+        </div>
       </section>
       <hr className="border-muted" />
       <section className="space-y-3">

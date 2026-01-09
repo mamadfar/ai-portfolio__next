@@ -21,7 +21,7 @@ export default function Home() {
             <TextGenerateEffect
               duration={0.3}
               filter={false}
-              words={`I'm a software developer with front-end super power who loves building interactive web applications.`}
+              words={`I'm a software engineer with front-end super power who loves building interactive web applications.`}
             />
           </p>
         </div>
