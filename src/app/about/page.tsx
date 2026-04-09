@@ -117,11 +117,11 @@ export default function Page() {
             <p className="text-muted-foreground text-sm mb-2">
               KLM Royal Dutch Airlines &middot; Budapest, Hungary / Amsterdam, Netherlands &middot; Nov 2025 - Present
             </p>
-            <ul className="list-inside list-disc space-y-1">
-              <li>Designed and implemented API integrations in collaboration with cross-functional teams and worked closely with the Designer, Product Owner, and Scrum Master across distributed environments.</li>
-              <li>Contributed to LLM-powered internal search design and built the semantic search UI in Angular, enabling natural language queries over complex operational data.</li>
-              <li>Led the development of scalable, high-traffic internal tools using Angular, ensuring seamless API integration between Budapest and Amsterdam.</li>
-              <li>Delivered end-to-end features across frontend and backend layers in production systems.</li>
+            <ul className="list-inside list-disc space-y-2">
+              <li className="ml-8 -indent-1.5 pl-0">Designed and implemented API integrations in collaboration with cross-functional teams and worked closely with the Designer, Product Owner, and Scrum Master across distributed environments.</li>
+              <li className="ml-8 -indent-1.5 pl-0">Contributed to LLM-powered internal search design and built the semantic search UI in Angular, enabling natural language queries over complex operational data.</li>
+              <li className="ml-8 -indent-1.5 pl-0">Led the development of scalable, high-traffic internal tools using Angular, ensuring seamless API integration between Budapest and Amsterdam.</li>
+              <li className="ml-8 -indent-1.5 pl-0">Delivered end-to-end features across frontend and backend layers in production systems.</li>
             </ul>
           </div>
 
@@ -132,12 +132,12 @@ export default function Page() {
             <p className="text-muted-foreground text-sm mb-2">
               BimObject &middot; Budapest, Hungary / Malmö, Sweden &middot; Jul 2023 - Oct 2025
             </p>
-            <ul className="list-inside list-disc space-y-1">
-              <li>Engineered SvelteKit SSR applications with centralized authentication, managing secure access for over 5 million users.</li>
-              <li>Drove 20% organic traffic growth (via Google Search Console) by migrating to Angular Universal SSR, improving Core Web Vitals from "Poor" to "Good" across LCP, CLS, and FID.</li>
-              <li>Delivered 20+ features for high-traffic platforms, enhancing user engagement by 30%.</li>
-              <li>Built an internal AI-assisted developer tool using Next.js and OpenAI API, enabling natural language access to internal documentation — adopted by the engineering team as a daily workflow tool.</li>
-              <li>Collaborated on backend API design, improving data flow efficiency and system scalability.</li>
+            <ul className="list-inside list-disc space-y-2">
+              <li className="ml-8 -indent-1.5 pl-0">Engineered SvelteKit SSR applications with centralized authentication, managing secure access for over 5 million users.</li>
+              <li className="ml-8 -indent-1.5 pl-0">Drove 20% organic traffic growth (via Google Search Console) by migrating to Angular Universal SSR, improving Core Web Vitals from "Poor" to "Good" across LCP, CLS, and FID.</li>
+              <li className="ml-8 -indent-1.5 pl-0">Delivered 20+ features for high-traffic platforms, enhancing user engagement by 30%.</li>
+              <li className="ml-8 -indent-1.5 pl-0">Built an internal AI-assisted developer tool using Next.js and OpenAI API, enabling natural language access to internal documentation — adopted by the engineering team as a daily workflow tool.</li>
+              <li className="ml-8 -indent-1.5 pl-0">Collaborated on backend API design, improving data flow efficiency and system scalability.</li>
             </ul>
           </div>
 
@@ -148,10 +148,10 @@ export default function Page() {
             <p className="text-muted-foreground text-sm mb-2">
               Citronity &middot; Toronto, Canada &middot; Oct 2021 - Jul 2023
             </p>
-            <ul className="list-inside list-disc space-y-1">
-              <li>Built 4 React applications and reusable UI libraries using Ant Design and Redux.</li>
-              <li>Reduced page load time by 40% and halved reported UI bugs through codebase refactoring and performance profiling with React DevTools and Lighthouse.</li>
-              <li>Mentored junior developers and helped increase team output by 20%.</li>
+            <ul className="list-inside list-disc space-y-2">
+              <li className="ml-8 -indent-1.5 pl-0">Built 4 React applications and reusable UI libraries using Ant Design and Redux.</li>
+              <li className="ml-8 -indent-1.5 pl-0">Reduced page load time by 40% and halved reported UI bugs through codebase refactoring and performance profiling with React DevTools and Lighthouse.</li>
+              <li className="ml-8 -indent-1.5 pl-0">Mentored junior developers and helped increase team output by 20%.</li>
             </ul>
           </div>
 
@@ -162,10 +162,10 @@ export default function Page() {
             <p className="text-muted-foreground text-sm mb-2">
               Hamimohajer &middot; Alborz, Iran &middot; Oct 2020 - Oct 2021
             </p>
-            <ul className="list-inside list-disc space-y-1">
-              <li>Designed and launched React/Next.js dashboards, raising engagement by 40%.</li>
-              <li>Integrated 30+ REST APIs into scalable web apps.</li>
-              <li>Enhanced app performance by 50% through React best practices.</li>
+            <ul className="list-inside list-disc space-y-2">
+              <li className="ml-8 -indent-1.5 pl-0">Designed and launched React/Next.js dashboards, raising engagement by 40%.</li>
+              <li className="ml-8 -indent-1.5 pl-0">Integrated 30+ REST APIs into scalable web apps.</li>
+              <li className="ml-8 -indent-1.5 pl-0">Enhanced app performance by 50% through React best practices.</li>
             </ul>
           </div>
 
@@ -176,10 +176,10 @@ export default function Page() {
             <p className="text-muted-foreground text-sm mb-2">
               Tadbir Hesab Mohaseban & Novin Tarh Gostaran &middot; Iran &middot; Jun 2017 - Oct 2020
             </p>
-            <ul className="list-inside list-disc space-y-1">
-              <li>Refactored React/SCSS codebases to reduce downtime by 20%.</li>
-              <li>Led responsive design implementation, improving mobile retention.</li>
-              <li>Solved cross-browser issues, increasing accessibility and performance.</li>
+            <ul className="list-inside list-disc space-y-2">
+              <li className="ml-8 -indent-1.5 pl-0">Refactored React/SCSS codebases to reduce downtime by 20%.</li>
+              <li className="ml-8 -indent-1.5 pl-0">Led responsive design implementation, improving mobile retention.</li>
+              <li className="ml-8 -indent-1.5 pl-0">Solved cross-browser issues, increasing accessibility and performance.</li>
             </ul>
           </div>
         </div>
