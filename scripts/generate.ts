@@ -62,7 +62,7 @@ import path from "path";
     const resumePath = path.join(
       process.cwd(),
       "public",
-      "Mohammad_Farhadi_Frontend_Resume.pdf",
+      "Mohammad_Farhadi_Software_Engineer_Resume.pdf",
     );
 
     try {
@@ -75,7 +75,7 @@ import path from "path";
         metadata: {
           source: "resume",
           type: "pdf",
-          title: "Mohammad Farhadi Resume",
+          title: "Mohammad Farhadi Software Engineer Resume",
           url: "/resume",
         },
       }));

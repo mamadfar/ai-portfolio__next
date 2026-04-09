@@ -31,23 +31,11 @@ export default function Page() {
       <section className="space-y-3">
         <H2>Skills</H2>
         <p>
-          I&apos;m a software engineer specializing in{" "}
-          <strong>React</strong>, <strong>Next.js</strong>,{" "}
-          <strong>TypeScript</strong>,{" "}
-          <strong>Angular/Angular Universal</strong>, <strong>SvelteKit</strong>
-          , and familiar with <strong>Node.js</strong> and <strong>Python</strong>. I have a strong
-          understanding of web development principles and best practices, and
-          I&apos;m always eager to learn new technologies and frameworks. I am
-          actively expanding into full-stack development with Python and
-          Node.js, specifically focusing on AI/LLM-driven projects and
-          integrating smart agents using tools like LangChain, OpenAI, and
-          Gemini.
+          I&apos;m a software engineer with <strong>7+ years</strong> of experiences building high-traffic web platforms for European companies, with deep expertise in <strong>React</strong>, <strong>Next.js</strong>, <strong>Angular</strong>, and <strong>SvelteKit</strong>. Actively expanding into full-stack development with <strong>Node.js</strong>, <strong>Python</strong>, and <strong>Java</strong> Spring Boot. Hands-on experience integrating <strong>LLMs/AI</strong> into production systems using OpenAI and LangChain.
         </p>
         <p>
-          I also have experience with mobile development (React Native) but have
-          stopped working with it a few years ago. I prefer web development
-          because you can use a modern website on almost every device and reach
-          the whole world with it.
+          Currently at Air France KLM Royal Dutch (Budapest/Amsterdam), building scalable internal tools and contributing to LLM-powered search features. Previously at BimObject, where I engineered SvelteKit SSR applications serving 5M+ users and drove a 20% organic traffic increase through an Angular Universal SSR migration.
+          And <strong>EU Blue Card</strong> holder with the right to work in any EU country. Fluent in English and Persian, with basic proficiency in Hungarian and Germany.
         </p>
       </section>
       <hr className="border-muted" />
@@ -129,9 +117,12 @@ export default function Page() {
             <p className="text-muted-foreground text-sm mb-2">
               KLM Royal Dutch Airlines &middot; Budapest, Hungary / Amsterdam, Netherlands &middot; Nov 2025 - Present
             </p>
-            <p>
-              Collaborating with cross-functional teams across Budapest and Amsterdam hubs to design and implement performant API integrations for enterprise-level internal tools. Architected and integrated an AI-driven search feature utilizing LLMs to streamline access to complex operational data. Building scalable, high-traffic frontend features using Angular, ensuring optimal performance for mission-critical airline systems.
-            </p>
+            <ul className="list-inside list-disc space-y-1">
+              <li>Designed and implemented API integrations in collaboration with cross-functional teams and worked closely with the Designer, Product Owner, and Scrum Master across distributed environments.</li>
+              <li>Contributed to LLM-powered internal search design and built the semantic search UI in Angular, enabling natural language queries over complex operational data.</li>
+              <li>Led the development of scalable, high-traffic internal tools using Angular, ensuring seamless API integration between Budapest and Amsterdam.</li>
+              <li>Delivered end-to-end features across frontend and backend layers in production systems.</li>
+            </ul>
           </div>
 
           <div>
@@ -141,9 +132,13 @@ export default function Page() {
             <p className="text-muted-foreground text-sm mb-2">
               BimObject &middot; Budapest, Hungary / Malmö, Sweden &middot; Jul 2023 - Oct 2025
             </p>
-            <p>
-              Architected and built SvelteKit SSR applications with centralized authentication, securing access for over 5 million users. Developed SEO-optimized Angular Universal applications that boosted organic visibility by 20%. Delivered 20+ features for high-traffic platforms, enhancing user engagement by 30%. Collaborated closely with backend teams to design performant API integrations and contributed to an internal Next.js/React AI project, deepening expertise in LLM-enabled user interfaces.
-            </p>
+            <ul className="list-inside list-disc space-y-1">
+              <li>Engineered SvelteKit SSR applications with centralized authentication, managing secure access for over 5 million users.</li>
+              <li>Drove 20% organic traffic growth (via Google Search Console) by migrating to Angular Universal SSR, improving Core Web Vitals from "Poor" to "Good" across LCP, CLS, and FID.</li>
+              <li>Delivered 20+ features for high-traffic platforms, enhancing user engagement by 30%.</li>
+              <li>Built an internal AI-assisted developer tool using Next.js and OpenAI API, enabling natural language access to internal documentation — adopted by the engineering team as a daily workflow tool.</li>
+              <li>Collaborated on backend API design, improving data flow efficiency and system scalability.</li>
+            </ul>
           </div>
 
           <div>
@@ -153,9 +148,11 @@ export default function Page() {
             <p className="text-muted-foreground text-sm mb-2">
               Citronity &middot; Toronto, Canada &middot; Oct 2021 - Jul 2023
             </p>
-            <p>
-              Built 4 React applications and reusable UI libraries using Ant Design and Redux. Improved user experience by 50% through systematic debugging and codebase optimization. Mentored junior developers, contributing to a 20% increase in team output, and achieved 90% customer satisfaction through rapid delivery and quality-focused development.
-            </p>
+            <ul className="list-inside list-disc space-y-1">
+              <li>Built 4 React applications and reusable UI libraries using Ant Design and Redux.</li>
+              <li>Reduced page load time by 40% and halved reported UI bugs through codebase refactoring and performance profiling with React DevTools and Lighthouse.</li>
+              <li>Mentored junior developers and helped increase team output by 20%.</li>
+            </ul>
           </div>
 
           <div>
@@ -165,9 +162,11 @@ export default function Page() {
             <p className="text-muted-foreground text-sm mb-2">
               Hamimohajer &middot; Alborz, Iran &middot; Oct 2020 - Oct 2021
             </p>
-            <p>
-              Designed and launched React/Next.js dashboards that raised user engagement by 40%. Integrated 30+ REST APIs into scalable web applications and enhanced overall app performance by 50% through implementing React best practices and optimization techniques.
-            </p>
+            <ul className="list-inside list-disc space-y-1">
+              <li>Designed and launched React/Next.js dashboards, raising engagement by 40%.</li>
+              <li>Integrated 30+ REST APIs into scalable web apps.</li>
+              <li>Enhanced app performance by 50% through React best practices.</li>
+            </ul>
           </div>
 
           <div>
@@ -177,9 +176,11 @@ export default function Page() {
             <p className="text-muted-foreground text-sm mb-2">
               Tadbir Hesab Mohaseban & Novin Tarh Gostaran &middot; Iran &middot; Jun 2017 - Oct 2020
             </p>
-            <p>
-              Refactored React/SCSS codebases to reduce system downtime by 20%. Led responsive design implementation, significantly improving mobile retention. Solved critical cross-browser compatibility issues, increasing overall accessibility and application performance.
-            </p>
+            <ul className="list-inside list-disc space-y-1">
+              <li>Refactored React/SCSS codebases to reduce downtime by 20%.</li>
+              <li>Led responsive design implementation, improving mobile retention.</li>
+              <li>Solved cross-browser issues, increasing accessibility and performance.</li>
+            </ul>
           </div>
         </div>
       </section>
